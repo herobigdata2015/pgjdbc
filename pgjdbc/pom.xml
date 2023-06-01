@@ -42,6 +42,51 @@
       <artifactId>client</artifactId>
       <version>2.1</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.10</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- 添加slf4j日志api -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.30</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
+      <version>1.7.30</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- 添加logback-classic依赖 -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.2.3</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- 添加logback-core依赖 -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>1.2.3</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-access</artifactId>
+      <version>1.2.3</version>
+    <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <profiles>
@@ -96,8 +141,8 @@
               <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
               <outputDirectory>${project.build.sourceDirectory}</outputDirectory>
               <keysFile>messages.pot</keysFile>
-              <poDirectory>src/main/java/org/postgresql/translation</poDirectory>
-              <targetBundle>org.postgresql.translation.messages</targetBundle>
+              <poDirectory>src/main/java/org/herodbsql/translation</poDirectory>
+              <targetBundle>org.herodbsql.translation.messages</targetBundle>
               <keywords>-kGT.tr</keywords>
               <msgmergeCmd>msgmerge</msgmergeCmd>
             </configuration>
@@ -121,12 +166,12 @@
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
               <excludes combine.children="append">
-                <exclude>org/postgresql/sspi/NTDSAPI.java</exclude>
-                <exclude>org/postgresql/sspi/NTDSAPIWrapper.java</exclude>
-                <exclude>org/postgresql/sspi/SSPIClient.java</exclude>
+                <exclude>org/herodbsql/sspi/NTDSAPI.java</exclude>
+                <exclude>org/herodbsql/sspi/NTDSAPIWrapper.java</exclude>
+                <exclude>org/herodbsql/sspi/SSPIClient.java</exclude>
               </excludes>
               <testExcludes>
-                <exclude>org/postgresql/test/sspi/*.java</exclude>
+                <exclude>org/herodbsql/test/sspi/*.java</exclude>
               </testExcludes>
             </configuration>
           </plugin>
@@ -149,8 +194,8 @@
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
               <excludes combine.children="append">
-                <exclude>org/postgresql/osgi/PGBundleActivator.java</exclude>
-                <exclude>org/postgresql/osgi/PGDataSourceFactory.java</exclude>
+                <exclude>org/herodbsql/osgi/PGBundleActivator.java</exclude>
+                <exclude>org/herodbsql/osgi/PGDataSourceFactory.java</exclude>
               </excludes>
               <testExcludes combine.children="append">
                 <exclude>**/PGDataSourceFactoryTest.java</exclude>
@@ -230,6 +275,7 @@
   </profiles>
 
   <build>
+    <finalName>HeroDB-${version}-jre8-${build.time}</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -251,7 +297,7 @@
         <configuration>
           <archive>
             <manifestEntries>
-              <Automatic-Module-Name>org.postgresql.jdbc</Automatic-Module-Name>
+              <Automatic-Module-Name>org.herodbsql.jdbc</Automatic-Module-Name>
             </manifestEntries>
           </archive>
         </configuration>
@@ -281,12 +327,12 @@
                 <exclude>**</exclude>
               </excludes>
             </filter>
-            <filter>
+            <!--<filter>
               <artifact>*:*</artifact>
               <excludes>
                 <exclude>com/sun/jna/**</exclude>
               </excludes>
-            </filter>
+            </filter>-->
           </filters>
         </configuration>
         <executions>
@@ -299,9 +345,28 @@
               <relocations>
                 <relocation>
                   <pattern>com.ongres</pattern>
-                  <shadedPattern>org.postgresql.shaded.com.ongres</shadedPattern>
+                  <shadedPattern>org.herodbsql.shaded.com.ongres</shadedPattern>
                 </relocation>
               </relocations>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <id>timestamp-property</id>
+            <goals>
+              <goal>timestamp-property</goal>
+            </goals>
+            <configuration>
+              <name>build.time</name>
+              <pattern>yyyyMMddHHmmss</pattern>
+              <locale>zh_CN</locale>
+              <timeZone>GMT+8:00</timeZone>
             </configuration>
           </execution>
         </executions>
@@ -326,6 +391,14 @@
             </goals>
           </execution>
         </executions>
+      </plugin>      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
       </plugin>
     </plugins>
 

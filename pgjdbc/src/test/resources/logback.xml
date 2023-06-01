@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<configuration>
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+    <!-- ch.qos.logback.core.ConsoleAppender 控制台输出 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy/MM/dd-HH:mm:ss} %-5level [%thread] %replace(%caller{1}){'\t|Caller.{1}0| at |\r\n', ''} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 日志级别 -->
+    <logger name="org.herodb" level="ALL" additivity="false">
+        <appender-ref ref="console"></appender-ref>
+    </logger>
+    <logger name="org.herodbsql" level="ALL" additivity="false">
+        <appender-ref ref="console"></appender-ref>
+    </logger>
+    <root>
+        <level value="ALL" />
+        <appender-ref ref="console" />
+    </root>
+</configuration>
