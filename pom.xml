@@ -11,7 +11,7 @@
   <name>PostgreSQL JDBC Driver aggregate</name>
   <version>42.2.12</version>
   <description>PgJDBC aggregate project</description>
-  <url>https://github.com/pgjdbc/pgjdbc</url>
+  <url>https://github.com/herobigdata2015/pgjdbc</url>
 
   <modules>
     <module>pgjdbc</module>
@@ -19,10 +19,10 @@
 
   <!-- If inherited from parent pom, maven tries to add artifactId to URLs -->
   <scm>
-    <url>https://github.com/pgjdbc/pgjdbc</url>
-    <connection>scm:git:https://github.com/pgjdbc/pgjdbc.git</connection>
-    <developerConnection>scm:git:git@github.com:pgjdbc/pgjdbc.git</developerConnection>
-    <tag>REL42.2.12</tag>
+    <url>https://github.com/herobigdata2015/pgjdbc</url>
+    <connection>scm:git:https://github.com/herobigdata2015/pgjdbc.git</connection>
+    <developerConnection>scm:git:git@github.com:herobigdata2015/pgjdbc.git</developerConnection>
+    <tag>HBD_REL42.2.12</tag>
   </scm>
 
 </project>
