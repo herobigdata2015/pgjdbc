@@ -9,7 +9,7 @@
 
   <groupId>com.herobigdata</groupId>
   <artifactId>herodb</artifactId>
-  <version>7.42.2.12.b</version>
+  <version>7.42.2.12.c</version>
   <name>Herodb JDBC Driver - JDBC 4.2</name>
   <packaging>bundle</packaging>
   <description>Java JDBC 4.2 (JRE 8+) driver for HeroDB database</description>
@@ -49,7 +49,7 @@
     <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
     <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
     <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
-    <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+    <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
   </properties>
 
   <dependencies>
@@ -337,9 +337,6 @@
                 <goals>
                   <goal>sign</goal>
                 </goals>
-                <configuration>
-                  <keyname>AAB9FE056A741DAA</keyname>
-                </configuration>
               </execution>
             </executions>
           </plugin>
